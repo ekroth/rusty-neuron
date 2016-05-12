@@ -10,15 +10,16 @@ fn main() {
     println!("Multiple random {}-by-{} matrix of random floats with identity on the GPU",
              num_rows, num_cols);
 
-    let a = af::identity(dims, af::Aftype::F32);
-    let b = af::randu(dims, af::Aftype::F32);
+    // Generate and print
+    let a = af::identity(dims, af::Aftype::F32).and_then(|a| { try!(af::print(&a)); Ok(a) });
+    let b = af::randu(dims, af::Aftype::F32).and_then(|b| { try!(af::print(&b)); Ok(b) });
+
+    // Multiply
     let c = a.and_then(|a| {
-        try!(af::print(&a));
         b.and_then(|b| {
-            try!(af::print(&b));
             af::matmul(&a, &b, af::MatProp::NONE, af::MatProp::NONE)
         })
-    }).unwrap();
+    });
 
-    af::print(&c).unwrap();
+    c.and_then(|c| af::print(&c)).unwrap();
 }
