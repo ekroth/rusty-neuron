@@ -1,0 +1,6 @@
+[package]
+name = "rusty-neuron"
+version = "0.1.0"
+authors = ["Andrée Ekroth <andree.ekroth@gmail.com>"]
+
+[dependencies]
