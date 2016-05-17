@@ -2,7 +2,7 @@ use std::iter;
 
 // Flatten Iterator of Result into Result of Vec
 pub fn result_sequence<T, U, E>(items: T) -> Result<Vec<U>, E>
-    where T: iter::IntoIterator<Item=Result<U, E>>
+    where T: iter::IntoIterator<Item=Result<U, E>>,
 {
     let mut rxs = Ok(vec![]);
 
