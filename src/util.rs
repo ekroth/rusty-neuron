@@ -1,9 +1,6 @@
-use std::iter::FromIterator;
-
 // Flatten Iterator of Result into Result of Vec
-pub fn result_sequence<I, T, E, B>(items: I) -> Result<B, E>
-    where I: IntoIterator<Item=Result<T, E>>,
-          B: FromIterator<T>,
+pub fn result_sequence<T, U, E>(items: T) -> Result<Vec<U>, E>
+    where T: IntoIterator<Item=Result<U, E>>
 {
     let mut rxs = Ok(vec![]);
 
@@ -15,6 +12,7 @@ pub fn result_sequence<I, T, E, B>(items: I) -> Result<B, E>
     }
 
     let r = try!(rxs);
+
     Ok(B::from_iter(r.into_iter()))
 }
 
